@@ -43,19 +43,20 @@ const Login = (props) => {
     isValid: null,
   });
 
+  //Object destructuring
+  const { isValid: emailIsValid } = emailState;
+  const { isValid: passwordIsValid } = passwordState;
   //add useEffect for setFormIsValid
-  // useEffect(() => {
-  //   const identifier = setTimeout(() => {
-  //     console.log("inside time out");
-  //     setFormIsValid(
-  //       enteredEmail.includes("@") && enteredPassword.trim().length > 6
-  //     );
-  //   }, 500);
-  //   return () => {
-  //     console.log("inside cleaner");
-  //     clearTimeout(identifier);
-  //   };
-  // }, [enteredEmail, enteredPassword]);
+  useEffect(() => {
+    const identifier = setTimeout(() => {
+      console.log("inside time out");
+      setFormIsValid(emailIsValid && passwordIsValid);
+    }, 500);
+    return () => {
+      console.log("inside cleaner");
+      clearTimeout(identifier);
+    };
+  }, [emailIsValid, passwordIsValid]);
   const emailChangeHandler = (event) => {
     dispatchEmail({ type: "USER_INPUT", val: event.target.value });
 
